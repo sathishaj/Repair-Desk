@@ -1,4 +1,4 @@
-import { Button, Dialog, Drawer, IconButton, TextField } from "@mui/material";
+import { Alert, Button, Dialog, Drawer, IconButton, Snackbar, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Firebaseconfig";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SendIcon from '@mui/icons-material/Send';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 const schema = z
@@ -39,7 +40,10 @@ const schema = z
 
 function Customercreateform() {
 
+
 const[open, setOpen]= useState(false)
+const [message, setMessage]= useState()
+const [openAlert, setOpenAlert] = useState(false);
 
 
 const handleopen = ()=>{setOpen(true)}
@@ -71,8 +75,10 @@ const handleclose = ()=>{
                        await addDoc(collection(db, "customers"), {
                        customername: data.customername,
                        phonenumber: data.phonenumber,
-                       createdAt: new Date(),
+                       createdAt: new Date(),                  
     });
+                       setMessage("Succesfully submitted")
+                        setOpenAlert(true);
                     } catch (error) {
                           console.error("Error adding document:", error);
                     }
@@ -81,6 +87,14 @@ const handleclose = ()=>{
     return (
             
         <>
+           <Snackbar
+             open={openAlert}
+             autoHideDuration={3000}
+             onClose={() => setOpenAlert(false)}
+              anchorOrigin={{ vertical: "top", horizontal: "right" }}>               
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" >{message}</Alert>
+           </Snackbar>
+             
             <Button variant="contained" color="secondary" className="!capitalize" onClick={handleopen} startIcon={<AddCircleIcon/>}  >New Customer</Button>
             <Dialog open={open} >
 

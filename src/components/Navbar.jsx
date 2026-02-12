@@ -11,7 +11,7 @@ return(
 
 <>
 
-  <AppBar position="sticky" className="!bg-white" >
+  <AppBar position="sticky" className="!bg-white !z-20 " >
     <Toolbar>
        
        <div className="flex justify-between items-center w-[100%] " >

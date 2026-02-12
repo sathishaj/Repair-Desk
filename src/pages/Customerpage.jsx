@@ -23,7 +23,7 @@ function Customerpage() {
   const [rowperpage, setRowperpage] = useState(5);
   const [isloading, setIsloading] = useState(true);
 
-  // Pagination
+
   const handlechangepage = (event, newpage) => {
     setPage(newpage);
   };
@@ -33,7 +33,7 @@ function Customerpage() {
     setPage(0);
   };
 
-  // 🔥 Firestore Realtime Listener
+
   useEffect(() => {
     setIsloading(true);
 
@@ -69,7 +69,7 @@ function Customerpage() {
 
   return (
     <div className="p-5 min-h-screen bg-[#E9E9E9] flex flex-col gap-10">
-      {/* Header */}
+   
       <div className="flex justify-between">
         <div className="text-xl font-bold text-gray-700">
           Customers
@@ -77,13 +77,13 @@ function Customerpage() {
         <Customercreateform />
       </div>
 
-      {/* 🔥 Loading State */}
+      {/*  Loading State */}
       {isloading && customerlist.length === 0 ? (
         <div className="w-full flex justify-center">
           <Tableskeleton />
         </div>
       ) : customerlist.length === 0 ? (
-        /* 🔥 Empty State */
+       
         <div className="flex flex-col items-center justify-center py-16">
           <p className="text-gray-500 text-xl font-semibold">
             No Customers Found
@@ -93,7 +93,7 @@ function Customerpage() {
           </p>
         </div>
       ) : (
-        /* 🔥 Table */
+        /*  Table */
         <div className="w-full flex justify-center">
           <TableContainer component={Paper} sx={{ width: 1200 }}>
             <Table>
